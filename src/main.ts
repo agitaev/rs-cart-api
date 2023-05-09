@@ -4,9 +4,7 @@ import { Callback, Context, Handler } from 'aws-lambda';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 
-const port = process.env.PORT || 4000;
 let server: Handler;
-
 async function bootstrap(): Promise<Handler> {
   const app = await NestFactory.create(AppModule, {
     cors: {
@@ -21,8 +19,6 @@ async function bootstrap(): Promise<Handler> {
   });
 
   app.use(helmet());
-
-  await app.listen(port);
   await app.init();
 
   const expressApp = app.getHttpAdapter().getInstance();
